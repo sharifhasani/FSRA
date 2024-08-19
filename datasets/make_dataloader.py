@@ -53,7 +53,7 @@ def make_dataset(opt):
     data_transforms = {
         'train': transforms.Compose(transform_train_list),
         'val': transforms.Compose(transform_val_list),
-        'satellite': transforms.Compose(transform_satellite_list)}
+        'sat': transforms.Compose(transform_satellite_list)}
 
     train_all = ''
     if opt.train_all:
