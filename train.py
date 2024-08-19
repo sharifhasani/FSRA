@@ -95,7 +95,7 @@ def train_model(model,opt, optimizer, scheduler, dataloaders,dataset_sizes):
             running_corrects2 = 0.0
             running_corrects3 = 0.0
 
-            for data,data2 in dataloaders:
+            for data,data2 in zip(dataloaders['sat'], dataloaders['side']):
                 # satallite # street # drone
                 loss = 0.0
                 # get the inputs
