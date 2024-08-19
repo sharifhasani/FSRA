@@ -1,7 +1,7 @@
 name="FSRA"
-data_dir="/media/dmmm/4T-3/DataSets/crossview/University1652/University-Release/train"
-test_dir="/media/dmmm/4T-3/DataSets/crossview/University1652/University-Release/test"
-pretrain_path="/home/dmmm/PycharmProject/FSRA/pretrain_model/vit_small_p16_224-15ec54c9.pth"
+data_dir="/home/disk/reid-survey/codes/RK-Net-main/data/building/train"
+test_dir="/home/disk/reid-survey/codes/RK-Net-main/data/building/test"
+pretrain_path="/home/disk/reid-survey/codes/FSRA/vit_small_p16_224-15ec54c9.pth"
 gpu_ids=0
 num_worker=4
 lr=0.01
