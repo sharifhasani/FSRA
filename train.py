@@ -214,12 +214,12 @@ def train_model(model,opt, optimizer, scheduler, dataloaders,dataset_sizes):
                         running_corrects3 += float(torch.sum(preds3 == labels3.data))
 
 
-            epoch_cls_loss = running_cls_loss/dataset_sizes['satellite']
-            epoch_kl_loss = running_kl_loss /dataset_sizes['satellite']
-            epoch_triplet_loss = running_triplet/dataset_sizes['satellite']
-            epoch_loss = running_loss / dataset_sizes['satellite']
-            epoch_acc = running_corrects / dataset_sizes['satellite']
-            epoch_acc2 = running_corrects2 / dataset_sizes['satellite']
+            epoch_cls_loss = running_cls_loss/dataset_sizes['sat']
+            epoch_kl_loss = running_kl_loss /dataset_sizes['sat']
+            epoch_triplet_loss = running_triplet/dataset_sizes['sat']
+            epoch_loss = running_loss / dataset_sizes['sat']
+            epoch_acc = running_corrects / dataset_sizes['sat']
+            epoch_acc2 = running_corrects2 / dataset_sizes['sat']
 
 
             lr_backbone = optimizer.state_dict()['param_groups'][0]['lr']
