@@ -202,8 +202,8 @@ def get_id(img_path):
 # Load Collected data Trained model
 print('-------test-----------')
 
-model = load_network( opt)
 print("这是%s的结果"%opt.checkpoint)
+model = load_network( opt)
 # model.classifier.classifier = nn.Sequential()
 model = model.eval()
 if use_gpu:
