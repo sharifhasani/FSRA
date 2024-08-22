@@ -45,6 +45,7 @@ opt = parser.parse_args()
 ###load config###
 # load the training config
 config_path = './checkpoints/FSRA/opts.yaml'
+opt.checkpoint = "./checkpoints/FSRA/net_119.pth"
 with open(config_path, 'r') as stream:
     config = yaml.safe_load(stream)
 opt.views = config['views']
