@@ -3,6 +3,7 @@
 from __future__ import print_function, division
 
 import argparse
+from datasets.make_dataloader import make_dataset
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
@@ -30,7 +31,7 @@ except ImportError: # will be 3.x series
 # --------
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('--gpu_ids',default='0', type=str,help='gpu_ids: e.g. 0  0,1,2  0,2')
-parser.add_argument('--test_dir',default='/home/dmmm/University-Release/test',type=str, help='./test_data')
+parser.add_argument('--test_dir',default='',type=str, help='./test_data')
 parser.add_argument('--checkpoint', default='net_119.pth', type=str, help='save model path')
 parser.add_argument('--batchsize', default=128, type=int, help='batchsize')
 parser.add_argument('--h', default=256, type=int, help='height')
@@ -102,18 +103,19 @@ data_query_transforms = transforms.Compose([
 ])
 
 
-
 data_dir = test_dir
 
 
-image_datasets_query = {x: datasets.ImageFolder(os.path.join(data_dir,x) ,data_query_transforms) for x in ['query_satellite','query_drone']}
+image_datasets_query = {x: datasets.ImageFolder(os.path.join(data_dir,x), data_query_transforms) for x in ['query']}
 
-image_datasets_gallery = {x: datasets.ImageFolder(os.path.join(data_dir,x) ,data_transforms) for x in ['gallery_satellite','gallery_drone']}
+image_datasets_gallery = {x: datasets.ImageFolder(os.path.join(data_dir,x) ,data_transforms) for x in ['gallery']}
 
 image_datasets = {**image_datasets_query, **image_datasets_gallery}
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
                                          shuffle=False, num_workers=opt.num_worker) for x in ['gallery_satellite', 'gallery_drone','query_satellite','query_drone']}
+
+# dataloaders,class_names,dataset_sizes = make_dataset(opt)
 use_gpu = torch.cuda.is_available()
 
 ######################################################################
@@ -129,9 +131,9 @@ def fliplr(img):
     return img_flip
 
 def which_view(name):
-    if 'satellite' in name:
+    if 'query' in name:
         return 1
-    elif 'street' in name:
+    elif 'gallery' in name:
         return 2
     elif 'drone' in name:
         return 3
@@ -153,7 +155,10 @@ def extract_feature(model,dataloaders, view_index = 1):
             for scale in ms:
                 if scale != 1:
                     # bicubic is only  available in pytorch>= 1.1
-                    input_img = nn.functional.interpolate(input_img, scale_factor=scale, mode='bilinear', align_corners=False)
+                    input_img = nn.functional.interpolate(input_img,
+                                                          scale_factor=scale,
+                                                          mode='bilinear',
+                                                          align_corners=False)
                 if opt.views ==2:
                     if view_index == 1:
                         outputs, _ = model(input_img, None)
@@ -208,8 +213,8 @@ if use_gpu:
 since = time.time()
 
 if opt.mode==1:
-    query_name = 'query_satellite'
-    gallery_name = 'gallery_drone'
+    query_name = 'query'
+    gallery_name = 'gallery'
 elif opt.mode==2:
     query_name = 'query_drone'
     gallery_name = 'gallery_satellite'

@@ -30,6 +30,7 @@ def copyfiles2checkpoints(opt):
     copy_file_or_tree('tool',dir_name)
     copy_file_or_tree('train_test_local.sh',dir_name)
     copy_file_or_tree('heatmap.py',dir_name)
+    print(f"save dir name: {dir_name}")
 
     # save opts
     with open('%s/opts.yaml' % dir_name, 'w') as fp:
