@@ -216,8 +216,8 @@ if opt.mode==1:
     query_name = 'query'
     gallery_name = 'gallery'
 elif opt.mode==2:
-    query_name = 'query_drone'
-    gallery_name = 'gallery_satellite'
+    query_name = 'query'
+    gallery_name = 'gallery'
 else:
     raise Exception("opt.mode is not required")
 
