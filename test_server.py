@@ -44,9 +44,9 @@ parser.add_argument('--pad', default=0, type=int, help='')
 opt = parser.parse_args()
 ###load config###
 # load the training config
-config_path = 'opts.yaml'
+config_path = './checkpoints/FSRA/opts.yaml'
 with open(config_path, 'r') as stream:
-    config = yaml.load(stream)
+    config = yaml.safe_load(stream)
 opt.views = config['views']
 opt.block = config['block']
 opt.share = config['share']
