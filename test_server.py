@@ -113,7 +113,7 @@ image_datasets_gallery = {x: datasets.ImageFolder(os.path.join(data_dir,x) ,data
 image_datasets = {**image_datasets_query, **image_datasets_gallery}
 
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=opt.batchsize,
-                                         shuffle=False, num_workers=opt.num_worker) for x in ['gallery_satellite', 'gallery_drone','query_satellite','query_drone']}
+                                         shuffle=False, num_workers=opt.num_worker) for x in ['gallery', 'query']}
 
 # dataloaders,class_names,dataset_sizes = make_dataset(opt)
 use_gpu = torch.cuda.is_available()
