@@ -244,8 +244,8 @@ query_label, query_path  = get_id(query_path)
 
 if __name__ == "__main__":
     with torch.no_grad():
-        query_feature = extract_feature(model,dataloaders[query_name], which_query)
-        gallery_feature = extract_feature(model,dataloaders[gallery_name], which_gallery)
+        query_feature = extract_feature(model,dataloaders[query_name], 1)
+        gallery_feature = extract_feature(model,dataloaders[gallery_name], 2)
 
     # For street-view image, we use the avg feature as the final feature.
     '''
