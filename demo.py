@@ -10,15 +10,15 @@ import matplotlib.pyplot as plt
 #######################################################################
 # Evaluate
 parser = argparse.ArgumentParser(description='Demo')
-parser.add_argument('--query_index', default=0, type=int, help='test_image_index')
-parser.add_argument('--test_dir',default='./data/test',type=str, help='./test_data')
+parser.add_argument('--query_index', default=2, type=int, help='test_image_index')
+parser.add_argument('--test_dir',default='/home/disk/reid-survey/codes/RK-Net-main/data/building/test/',type=str, help='./test_data')
 opts = parser.parse_args()
 
 
 #gallery_name = 'gallery_satellite'
 #query_name = 'query_drone'
-gallery_name = 'gallery_drone'
-query_name = 'query_satellite'
+gallery_name = 'gallery'
+query_name = 'query'
 
 data_dir = opts.test_dir
 image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ) for x in [gallery_name, query_name]}
@@ -75,7 +75,8 @@ def sort_img(qf, ql, gf, gl):
     return index
 
 i = opts.query_index
-index = sort_img(query_feature[i],query_label[i],gallery_feature,gallery_label)
+# for i in range(300):
+index = sort_img(query_feature[i], query_label[i], gallery_feature, gallery_label)
 
 ########################################################################
 # Visualize the rank result
@@ -84,7 +85,7 @@ query_path, _ = image_datasets[query_name].imgs[i]
 query_label = query_label[i]
 print(query_path)
 print('Top 10 images are as follow:')
-save_folder = 'image_show/%02d'%opts.query_index
+save_folder = 'image_show/%02d'%i
 if not os.path.isdir(save_folder):
     os.mkdir(save_folder)
 os.system('cp %s %s/query.jpg'%(query_path, save_folder))
@@ -116,4 +117,3 @@ except RuntimeError:
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')
 
 fig.savefig("show.png")
-
